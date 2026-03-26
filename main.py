@@ -1,5 +1,6 @@
 from app.recommender.schemas import FeatureInput
 from app.recommender.service import generate_recommendations
+from app.recommender.model import predict_recommendation_type
 
 
 sample = FeatureInput(
@@ -20,7 +21,13 @@ sample = FeatureInput(
     days_since_last_acknowledged_action=3,
 )
 
+# 🔹 ML prediction
+ml_prediction = predict_recommendation_type(sample)
+print("ML predicted type:", ml_prediction)
+
+# 🔹 Rule-based recommendations
 results = generate_recommendations(sample)
 
+print("\nRule-based recommendations:")
 for rec in results:
     print(rec.model_dump())
